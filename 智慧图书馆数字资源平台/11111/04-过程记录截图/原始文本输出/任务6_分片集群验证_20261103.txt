@@ -1,0 +1,20 @@
+============================================================
+任务六 分片集群实测（config 27200 / sh1 27301 / sh2 27302 / mongos 27300）
+============================================================
+
+[1] 集群可用：mongos 连接 OK, listShards:
+      - shard1rs  host=shard1rs/127.0.0.1:27301 state=1
+      - shard2rs  host=shard2rs/127.0.0.1:27302 state=1
+
+[2] 分片集合: smart_library.borrow_logs  分片键 = {'book_isbn': 'hashed'}
+
+[3] 数据分布（$shardedDataDistribution）:
+     分片 shard2rs: owned=1500 条, size=231000B
+     分片 shard1rs: owned=1500 条, size=231000B
+     mongos 总量: 3000 条
+
+[4] 路由验证:
+     带分片键(book_isbn)查询 → ['SINGLE_SHARD', 'FETCH', 'IXSCAN'] (定向 SINGLE_SHARD)
+     不带分片键(status)查询 → ['SHARD_MERGE', 'SHARDING_FILTER', 'COLLSCAN', 'SHARDING_FILTER'] (跨片 SHARD_MERGE/SCATTER)
+
+[5] chunk 分布（0 个）: {}

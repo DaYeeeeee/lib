@@ -1,0 +1,15 @@
+{
+  "_comment": "统一连接配置：【公开版】密码已替换为 CHANGE_ME，请按 03-数据库与配置/启动与部署说明.md 创建账号后替换",
+  "uri": "mongodb://lib_writer:CHANGE_ME@127.0.0.1:27017,127.0.0.1:27018,127.0.0.1:27019/?replicaSet=rs0&authSource=smart_library",
+  "db": "smart_library",
+  "admin_uri": "mongodb://lib_admin:CHANGE_ME@127.0.0.1:27017,127.0.0.1:27018,127.0.0.1:27019/?replicaSet=rs0&authSource=admin",
+  "standalone_uri": "mongodb://127.0.0.1:27017/?directConnection=true",
+  "shard_uri": "mongodb://lib_writer:CHANGE_ME@127.0.0.1:27300/smart_library?authSource=smart_library",
+  "shard_admin_uri": "mongodb://lib_admin:CHANGE_ME@127.0.0.1:27300/?authSource=admin",
+  "repl_members": [
+    "127.0.0.1:27017",
+    "127.0.0.1:27018",
+    "127.0.0.1:27019"
+  ],
+  "repl_set": "rs0"
+}

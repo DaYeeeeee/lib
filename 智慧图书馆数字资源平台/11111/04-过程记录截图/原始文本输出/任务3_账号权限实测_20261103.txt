@@ -1,0 +1,15 @@
+【任务三 补充实测：三账号权限验证（mongod --auth 模式，2026-11-03）】
+前置：系统已存在 lib_reader/read、lib_writer/readWrite、lib_admin/dbOwner+userAdminAnyDatabase+clusterAdmin 三账号
+① 无凭据连接（预期：查询被拒绝 code=13）：
+  [拒绝] 查询 books: code=13 Command aggregate requires authentication, full error: {'ok': 0.0, 'errmsg': 'Co
+② lib_reader（只读，预期：查询通过/写入被拒 code=13）：
+  [通过] 查询 books: 50 本
+  [拒绝] 写入 books: code=13 not authorized on smart_library to execute command { insert: "books", ordered: t
+③ lib_writer（可读写，预期：写入/删除/更新通过）：
+  [通过] 插入测试书: perm-y
+  [通过] 删除测试书: 1
+④ lib_admin（管理，预期：建索引/删索引/查用户通过）：
+  [通过] 创建临时索引: perm_test_i
+  [通过] 删除临时索引: None
+  [通过] 列出用户数: 1 个
+结论：四场景与文档 4.5 访问控制表完全一致 ✓
